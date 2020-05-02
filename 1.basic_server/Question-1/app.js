@@ -1,11 +1,12 @@
 const express = require("express");
 const path = require("path");
+const ejs = require("ejs");
 
-var indexRouter = require('index');
-var registerRouter = require('register');
-var scheduleRouter = require('schedule');
-var speakerRouter = require('speakers');
-var venueRouter = require('venue');
+var indexRouter = require('./routes/index');
+var registerRouter = require('./routes/register');
+var scheduleRouter = require('./routes/schedule');
+var speakerRouter = require('./routes/speakers');
+var venueRouter = require('./routes/venue');
 const PORT = process.env.PORT||3000;
 
 var app = express();
@@ -14,7 +15,7 @@ var app = express();
 app.set("view engine", "ejs");          //use ejs and view engine
 app.set("views", path.join(__dirname, "/views"));   //
 
-app.use(express.static(__dirname +"/public"));
+app.use(express.static(path.join(__dirname ,"/public")));
 
 
 app.use("/", indexRouter);
