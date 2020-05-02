@@ -2,11 +2,11 @@ const express = require("express");
 const path = require("path");
 const ejs = require("ejs");
 
-var indexRouter = require('./routes/index');
-var registerRouter = require('./routes/register');
-var scheduleRouter = require('./routes/schedule');
-var speakerRouter = require('./routes/speakers');
-var venueRouter = require('./routes/venue');
+var indexRouter = require("./routes/index");
+var registerRouter = require("./routes/register");
+var scheduleRouter = require("./routes/schedule");
+var speakerRouter = require("./routes/speakers");
+var venueRouter = require("./routes/venue");
 const PORT = process.env.PORT||3000;
 
 var app = express();
