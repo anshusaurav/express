@@ -57,4 +57,29 @@ router.get("/:id/delete", (req, res, next) =>{
     });  //defaults to $set fields missing from {} object are not updated
 });
 
+
+//Edit book
+
+router.get("/:id/update", (req, res, next) =>{
+    var id = req.params.id;
+    console.log('ID', id);
+    Book.findById(id, (err, updatedBook) =>{
+        if(err)
+            return next(err);
+        res.render('editBook',  updatedBook);
+
+    });  //defaults to $set fields missing from {} object are not updated
+});
+
+
+router.post("/:id/update", (req, res, next) =>{
+    var id = req.params.id;
+    console.log('ID', id);
+    Book.findByIdAndDelete(id, (err, updatedBook) =>{
+        if(err)
+            return next(err);
+        res.redirect('/books');
+
+    });  //defaults to $set fields missing from {} object are not updated
+});
 module.exports = router;
