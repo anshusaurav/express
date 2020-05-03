@@ -12,6 +12,7 @@ var bookSchema = new Schema({
         required: true,
     },
     Publication: String,
+    thumb_url: String,
 },{timestamps: true});
 
 module.exports = mongoose.model("Book", bookSchema);
