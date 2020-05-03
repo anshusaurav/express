@@ -1,18 +1,16 @@
 <%- include('partials/header') -%>
 <h1>All Books</h1>
 <% books.forEach(elem => { %>
-    <img src="<%= elem.thumb_url %>" class="book-thumb-img img-responsive">
-    <a href="books/<%= elem.id%>"><p><%= elem.title%></p></a>
-    
-    <p>Author: <%= elem.author%></p>
-    <% if(elem.hasOwnProperty('language')) { %>
-
-    <p><%= `Language: ${elem.language}`%></p>
-    <% } %>
-    
-    <% if(elem.hasOwnProperty('publisher')) { %>
-    <p><%= `Publisher: ${elem.publisher}`%></p>
-    <% }%>
-
+    <div class="grid-col-2 book-cont">
+        <div>
+            <img src="<%= elem.thumb_url %>" class="book-thumb-img img-responsive">
+        </div>
+        <div>
+            <a href="books/<%= elem.id%>"><h2><%= elem.title%></h2></a>
+            <p>Author: <%= elem.author%></p>
+            <p><%= `Language: ${elem.language}`%></p>
+            <p><%= `Publisher: ${elem.publisher}`%></p>
+        </div>
+    </div>
     <% })%>
 <%- include('partials/footer') -%>

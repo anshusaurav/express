@@ -23,5 +23,16 @@ a{
     color: inherit;
 }
 
+.img-responsive{
+    width: 100%;
+
+}
+.book-cont{
+    grid-gap: 32px;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 200px 400px;
+    margin: 8px 0;
+}
 
 

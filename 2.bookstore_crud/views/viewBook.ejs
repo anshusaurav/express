@@ -1,0 +1,13 @@
+<%- include('partials/header') -%>
+<div class="grid-col-2 book-cont">
+    <div>
+        <img src="<%= book.thumb_url %>" class="book-thumb-img img-responsive">
+    </div>
+    <div>
+        <h2><%= V.title%></h2>
+        <p>Author: <%= book.author%></p>
+        <p><%= `Language: ${book.language}`%></p>
+        <p><%= `Publisher: ${book.publisher}`%></p>
+    </div>
+</div>
+<%- include('partials/footer') -%>
