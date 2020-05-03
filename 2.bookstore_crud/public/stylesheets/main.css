@@ -7,7 +7,19 @@ body{
     grid-template-columns: repeat(2,200px);
     margin: 8px 0;
 }
-
+.grid-col-3{
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    grid-gap: 32px;
+    margin: 8px 0;
+    margin: 32px;
+    box-sizing: content-box;
+}
+.grid-col-3 > a{
+    border: 1px solid purple;
+    text-align: center;
+    border-radius: 4px;
+}
 input[type=text] {
     border: 1px solid rebeccapurple;
 }

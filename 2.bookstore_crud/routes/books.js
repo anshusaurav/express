@@ -31,15 +31,30 @@ router.post("/new", (req, res, next) =>{
 //view Single book
 
 router.get("/:id", (req, res, next) =>{
-    var _id = req.params.id;
+    var id = req.params.id;
     console.log('ID', id);
-    Book.findById(_id, (err, book) =>{
+    Book.findById(id, (err, book) =>{
         console.log(book);
         if(err)
             return next(err);
         console.log(book);
-        return res.render('viewBook', {book})
+        return res.render("viewBook", {book})
     });
+});
+
+
+//Delete single book
+
+
+router.get("/:id/delete", (req, res, next) =>{
+    var id = req.params.id;
+    console.log('ID', id);
+    Book.findByIdAndDelete(id, (err, updatedBook) =>{
+        if(err)
+            return next(err);
+        res.redirect('/books');
+
+    });  //defaults to $set fields missing from {} object are not updated
 });
 
 module.exports = router;
