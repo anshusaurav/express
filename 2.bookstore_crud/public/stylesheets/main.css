@@ -1,17 +1,29 @@
+.container{
+    width: 1000px;
+    margin: 0 auto;
+}
+
 body{
     color: rebeccapurple;
+}
+h1{
+    text-align: center;
+}
+h3{
+    font-size: 24px;
+
 }
 .grid-col-2{
     width: 40%;
     display: grid;
     grid-template-columns: repeat(2,200px);
-    margin: 8px 0;
+    margin: 8px auto;
 }
 .grid-col-3{
     display: grid;
     grid-template-columns: repeat(3, 120px);
     grid-gap: 32px;
-    margin: 8px 0;
+    margin: 8px auto;
     margin: 32px;
     box-sizing: content-box;
 }
