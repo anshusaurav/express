@@ -1,6 +1,6 @@
 <%- include('partials/header') -%>
     <h1>Add Book</h1>
-    <form action="books/<%= book.id%>/update" method="POST">
+    <form action="/books/<%= book.id%>/update" method="POST">
         <div class="grid-col-2">
             <label for="title">
                 Title
@@ -31,7 +31,7 @@
             </label>
             <input type="text" name="thumb_url" value="<%= book.thumb_url%>">
         </div>
-        <input type="submit" value="Add Book">
+        <input type="submit" value="Update book">
     </form>
     
 <%- include('partials/footer') -%>

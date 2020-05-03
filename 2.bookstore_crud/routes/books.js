@@ -32,12 +32,12 @@ router.post("/new", (req, res, next) =>{
 
 router.get("/:id", (req, res, next) =>{
     var id = req.params.id;
-    console.log('ID', id);
+    // console.log('ID', id);
     Book.findById(id, (err, book) =>{
-        console.log(book);
+        // console.log(book);
         if(err)
             return next(err);
-        console.log(book);
+        // console.log(book);
         return res.render("viewBook", {book})
     });
 });
@@ -48,7 +48,7 @@ router.get("/:id", (req, res, next) =>{
 
 router.get("/:id/delete", (req, res, next) =>{
     var id = req.params.id;
-    console.log('ID', id);
+    // console.log('ID', id);
     Book.findByIdAndDelete(id, (err, updatedBook) =>{
         if(err)
             return next(err);
@@ -62,11 +62,11 @@ router.get("/:id/delete", (req, res, next) =>{
 
 router.get("/:id/update", (req, res, next) =>{
     var id = req.params.id;
-    console.log('ID', id);
-    Book.findById(id, (err, updatedBook) =>{
+    // console.log('1ID', id);
+    Book.findById(id, (err, book) =>{
         if(err)
             return next(err);
-        res.render('editBook',  updatedBook);
+        res.render("editBook",  {book});
 
     });  //defaults to $set fields missing from {} object are not updated
 });
@@ -74,8 +74,9 @@ router.get("/:id/update", (req, res, next) =>{
 
 router.post("/:id/update", (req, res, next) =>{
     var id = req.params.id;
-    console.log('ID', id);
-    Book.findByIdAndDelete(id, (err, updatedBook) =>{
+    console.log('2ID', id);
+    console.log('Sunny');
+    Book.findByIdAndUpdate(id, req.body, (err, updatedBook) =>{
         if(err)
             return next(err);
         res.redirect('/books');
