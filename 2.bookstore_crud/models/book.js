@@ -11,7 +11,8 @@ var bookSchema = new Schema({
         type: String,
         required: true,
     },
-    Publication: String,
+    publisher: String,
+    language: String,
     thumb_url: String,
 },{timestamps: true});
 

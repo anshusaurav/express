@@ -1,0 +1,27 @@
+body{
+    color: rebeccapurple;
+}
+.grid-col-2{
+    width: 40%;
+    display: grid;
+    grid-template-columns: repeat(2,200px);
+    margin: 8px 0;
+}
+
+input[type=text] {
+    border: 1px solid rebeccapurple;
+}
+
+input[type=submit] {
+    border: 1px solid rebeccapurple;
+    color: rebeccapurple;
+    padding: 4px;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+
+

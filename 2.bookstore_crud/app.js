@@ -10,7 +10,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const ejs = require('ejs');
 const path = require('path');
-
+const logger = require('morgan');
 
 
 //REquire router files
@@ -26,7 +26,9 @@ mongoose.connect('mongodb://localhost:27017/bookstore-crud',
 
 var app = express();
 
-//connect to db
+//adding morgan middleware
+app.use(logger("short")); 
+
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
@@ -39,10 +41,7 @@ app.set("views", path.join(__dirname, "/views"));   //
 app.use("/", indexRouter);
 app.use("/books", bookRouter);
 
-app.use(express.static(path.join(__dirname +"/public")));
-
-
-
+app.use(express.static(path.join(__dirname ,"/public")));
 
 app.use((err,req, res, next) =>{
     res.statusCode = 404;

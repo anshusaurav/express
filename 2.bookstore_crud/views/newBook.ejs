@@ -1,9 +1,37 @@
 <%- include('partials/header') -%>
-    <p>Add Book</p>
+    <h1>Add Book</h1>
     <form action="/books/new" method="POST">
-        <label for="title">
-            Title
-        </label>
+        <div class="grid-col-2">
+            <label for="title">
+                Title
+            </label>
+            <input type="text" name="title">
+        </div>
+        <div class="grid-col-2">
+            <label for="author">
+                Author
+            </label>
+            <input type="text" name="author">
+        </div>
+        <div class="grid-col-2">
+            <label for="publisher">
+                Publisher
+            </label>
+            <input type="text" name="publisher">
+        </div>
+        <div class="grid-col-2">
+            <label for="language">
+                Langauge
+            </label>
+            <input type="text" name="language">
+        </div>
+        <div class="grid-col-2">
+            <label for="thumb_url">
+                Thumbnail URL
+            </label>
+            <input type="text" name="thumb_url">
+        </div>
+        <input type="submit" value="Add Book">
     </form>
     
 <%- include('partials/footer') -%>
