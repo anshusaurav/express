@@ -6,7 +6,9 @@
     <div>
         <h2><%= book.title%></h2>
         <p>Author: <%= book.author%></p>
+        <%if(book.language) {%>
         <p><%= `Language: ${book.language}`%></p>
+        <% }%>
         <p><%= `Publisher: ${book.publisher}`%></p>
     </div>
 </div>

@@ -1,0 +1,329 @@
+.home-grid {
+    display: grid;
+    grid-template-columns: 0.75fr 880px 1fr;
+    width: 100%;
+}
+.right-home-div{
+    padding: 0.5rem;
+}
+.notifications-center{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 1000;
+}
+.more-from-network-div{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-color: #D7EFEE;
+    height:180px;
+}
+.basic-flex{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+.more-flex{
+    flex-wrap: nowrap;
+    padding: 0 0.5rem;
+}
+
+.home-network-img{
+    width: 100%;
+}
+.more-from-network-text{
+    font-size: 16px;
+    vertical-align: center;
+}
+.right-home-inner-div{
+    position: sticky;
+    top: 1rem;
+    padding-top: 1rem;
+}
+.network-articles{
+    margin-top: 2rem;
+    border:  0.5px solid #D9D9D9;
+    max-height: 65vh;
+    overflow-y: auto;
+}
+.network-article-title{
+    font-size: 16px;
+    font-weight: 550;
+    color: black;
+}
+.network-articles-elem{
+    width: 100%;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: inline-block;
+    border-bottom:  0.5px solid #D9D9D9;
+}
+.network-auth-name{
+    font-size: 14px;
+    font-weight: 400;
+}
+.network-auth-date{
+    font-size: 12px;
+}
+.network-articles-elem  .pfu{
+    font-size: 10px;
+}
+
+.left-home-div{
+    padding: 0.5rem;
+}
+.left-home-inner-div{
+    position: sticky;
+    top: 0.5rem;
+    padding-top: 1rem;
+}
+.left-home-user-options{
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 1fr;
+    /* grid-gap: 0.5rem; */
+    max-width: 100%;
+    /* width: 80%; */
+    min-height: 2rem;
+}
+
+.left-home-option-elem{
+    padding: 0.5rem 1rem;
+    display: grid;
+    /* justify-self: center; */
+    grid-template-columns: 48px auto;
+    cursor: pointer;
+    align-content: center;
+    
+}
+.left-home-option-elem:hover{
+    background-color: rgba(8, 9, 10, 0.05);
+    transition: all 0.2s ease-out;
+}
+.left-home-options-text{
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(8, 9, 10, 0.6);
+    white-space: nowrap; 
+    overflow: none;
+}
+.left-home-option-icon-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.write-new-icon{
+    color: #3B49DF;
+}
+.tag-icon{
+    color: #FFD983;
+}
+.liked-icon{
+    color: #DE3039;
+}
+.popular-icon{
+  color: #FE605F;  
+}   
+.left-home-option-icon {
+    font-size: 20px;
+}
+.res-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 25%;
+}
+.mainprofilepic {
+    max-width: 96px;
+    max-height: 96px;
+    height: 84px;
+    width: 84px;
+    border-radius: 20px 20px 0px 0px;
+}
+.main-user-name{
+    font-weight: 500;
+    font-size: 22px;
+}
+.left-home-user-profile{
+    margin-bottom: 2rem;
+    display: flex;
+    border: 0.5px solid #D9D9D9;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    
+}
+.new-home-grid{
+    display: grid;
+    grid-template-columns: 84px auto;
+    grid-gap: 0.5rem;
+}
+
+.author-home-sub-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.home-all-sn{
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+.home-all-sn > a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.home-page-ssn{
+    font-size: 32px;
+    color: rgba(7,8,9,0.1);
+}
+.darker-ssn{
+    color: rgba(7,8,9,0.8);
+    transition: all 0.2s ease-in-out;
+}
+.tag-follow-main-div{
+    margin: 0 auto;
+    overflow-y:auto;
+    font-size: 16px;
+    padding: 0.5rem;
+    max-height: 55vh;
+}
+.header-follow-tag-home{
+    
+    color: #020202;
+    font-weight: 500;
+}
+.followed-tags-inner-div{
+    display: grid;
+    margin: 0 auto;
+}
+.followed-tags-inner-div-double{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.25rem;
+}
+.followed-tags-inner-div-double:hover{
+    background-color: rgba(8, 9, 10, 0.05);
+    transition: all 0.2s ease-out;
+}
+.home-page-toggle-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-page-toggle-a{
+    padding: 2px 4px;
+    display: inline-block;
+    background-color: #FE605F;
+    transition: opacity 0.25s ease-in-out;
+}
+.followed-tags-inner-div-double .home-page-toggle-a {
+    visibility: hidden;
+    opacity: 0;
+}
+.followed-tags-inner-div-double:hover .home-page-toggle-a {
+    visibility: visible;
+    opacity: 1;
+}
+.filter-view-home-list{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+    margin: 1rem 2rem;
+}
+.filter-view-single{
+    display: inline-block;
+    padding: 8px 4px;
+    font-size: 0.95em;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    text-align: center;
+    font-weight: 600;
+    font-size: 22px;
+    cursor: pointer;
+}
+.filter-view-single:hover{
+    opacity: 1;
+    background: #4e57ef;
+    color: white;
+    border: 1px solid #cfd7ff;
+    box-shadow: 3px 4px 0px #cfd7ff;
+}
+.filter-view-single-active{
+    background: #cfd7ff;
+    color: #0a0a0a;
+    border: 1px solid #4e57ef;
+    box-shadow: 3px 4px 0px #4e57ef;
+    transition: all 0.2s ease-in-out;
+}
+.article-list-grid-week, .article-list-grid-today, .article-list-grid-feed, .article-list-grid-infinity {
+    display: grid;
+    grid-gap: 1rem;
+    padding: 0.5rem;
+}
+.new-notification-div {
+    -moz-animation: cssAnimation 0s ease-in 10s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 10s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 10s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 10s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+.notifications-center{
+    display: grid;
+    grid-gap: 1rem;
+    min-width: 280px;
+
+}
+.new-notification-div{
+    height: 120px;
+    background-color: rgba(76, 40, 158, 0.836);
+    color: white;
+    border-radius: 16px;
+    position: relative;
+    width: 320px;
+    
+}
+.new-notif-p{
+    padding: 0.75rem;
+    padding-bottom: 0;
+    font-size: 12px;
+    
+}
+.new-notification-text{
+    padding: 0.75rem;
+    font-size: 14px;
+    /* white-space: pre; */
+}
+.notif-author{
+    display: block;
+    color: whitesmoke;
+    padding: 0 0.75rem;
+    font-size: 10px;
+}
+.notif-stack-des{
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 14px;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+

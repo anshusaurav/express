@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Medium -Get smarted about what matters to you</title>
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <link rel="stylesheet" href="/stylesheets/main.css"/>
+    <link rel="stylesheet" href="/stylesheets/home.css"/>
+    <link rel="stylesheet" href="/stylesheets/prism.css"/>
+    <link rel="shortcut icon" type="image/png" href="/images/medium-favicon.png"/>
+    <script src="https://kit.fontawesome.com/f4ce9ea80b.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <script src="/javascripts/main.js" defer></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  
+    
+  </head>
+  <body>
+    <header>
+      <a href='/'><p class='header-links' id='logo-p'>Medium</p></a>
+      <% if(isUser){ %>
+        <label class="dropdown">
+
+          <div class="dd-button">
+            <img class="profile-pic-header" src="<% if(user.avatar === 'avatar' && (user.github_oauth ||user.google_oauth)) { %> 
+              <% if(user.github_oauth) { %>
+                  <%= user.github_profile.photo %>
+              <%} else if(user.google_oauth) { %>
+                  <%= user.google_profile.picture %>
+              <% } %>   
+              <%} else { %>
+                  <%= `/data/uploads/${user.avatar}`%>
+              <%} %>              
+            " data-id="<%= user.id %>"/>
+          </div>
+        
+          <input type="checkbox" class="dd-input" id="test">
+          <div class='dd-menu-div'>
+          <ul class="dd-menu">
+            <li><i class="fas fa-pencil-alt"></i><a href='/articles/new'>New Post</a></li>
+            <li><i class="fas fa-user"></i><a href="/users/<%=user.id %>">Profile</a></li>
+            <li><i class="fas fa-house-user"></i><a href="/home">Home</a></li>
+            <li class="divider"></li>
+            <li><i class="fas fa-sign-out-alt"></i>
+              <a href="/users/logout">Logout</a>
+            </li>
+          </ul>
+          </div>
+          
+        </label>  
+      <% } else { %>
+        <a href="/users/register"><div class="button header-links">Sign Up</div></a>
+        <a href="/users/login"><div class="button header-links">Sign In</div></a>
+      <% } %>
+    </header>
+    

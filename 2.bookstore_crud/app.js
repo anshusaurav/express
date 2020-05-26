@@ -46,7 +46,6 @@ app.use(express.static(path.join(__dirname ,"/public")));
 app.use((err,req, res, next) =>{
     res.statusCode = 404;
     res.send('Page not found');
-    //same as res.status(404).send('Page not found');
 });
 
 //client or sever error

@@ -1,0 +1,595 @@
+<%- include('partials/header') -%>
+<div class="flashes">
+    <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
+
+    <% if(locals.message){ %>
+        <% console.log('Client: ', JSON.stringify(locals.message)) %>
+         <% if(locals.message.Success) { %>
+            <div class="alert alert-success" role="alert">
+                <%=message.Success[0]%>
+            </div>
+        <% } else {%>
+            <div class="alert alert-error" role="alert">
+                <%=message.Error[0]%>
+            </div>
+  
+        <% } %>
+    <% } %>
+  </div>   
+<div class='notifications-center'>
+    
+</div>
+<div class='home-grid'>
+    <div class='left-home-div'>
+        <div class='left-home-inner-div'>
+            <div class='left-home-user-profile'>
+                <div>
+                    <div class='new-home-grid'>
+                        <div class="mainprofilepic">
+                            <img class="res-img" src="<% if(user.avatar === 'avatar' && (user.github_oauth ||user.google_oauth)) { %> 
+                                                            <% if(user.github_oauth) { %>
+                                                                <%= user.github_profile.photo %>
+                                                            <%} else if(user.google_oauth) { %>
+                                                                <%= user.google_profile.picture %>
+                                                            <% } %>   
+                                                        <%} else { %>
+                                                            <%= `/data/uploads/${user.avatar}`%>
+                                                        <%} %>              
+                            " data-id="<%= user.id %>"/>
+                        </div>
+                        <div class='article-page-author author-home-sub-grid'>
+                            <a href="/users/<%=user.id%>" class='article-auth-link main-user-name'>
+                                <%= user.name%>
+                            </a> 
+                            <div class='home-all-sn'>
+                                <a target="_blank" href='<% if(user.github_oauth !== undefined){ %>
+                                            <%=user.github_profile.profile%>
+                                        <% }else {%>
+                                            /auth/github
+                                        <% } %>'
+                                   class='github-linkup-home'>
+                                    <i class="fab fa-github-square home-page-ssn
+                                    <% if(user.github_oauth !== undefined){ %>
+                                     darker-ssn
+                                    <% }%>
+                                    "></i>
+                                </a>
+                                <a target="_blank" href='<% if(user.fb_oauth !== undefined){ %>
+                                    #
+                                <% }else {%>
+                                    /auth/facebook
+                                <% } %>'
+                                class='fb-linkup-home'>
+                                    <i class="fab fa-facebook-square home-page-ssn
+                                    <% if(user.fb_oauth !== undefined){ %>
+                                        darker-ssn
+                                    <% }%>
+                                    "></i>
+                                </a>
+                                <a target="_blank" href='<% if(user.google_oauth !== undefined){ %>
+                                    #
+                                <% }else {%>
+                                    /auth/google
+                                <% } %>'
+                                class='google-linkup-home'>
+                                    <i class="fab fa-google-plus-square home-page-ssn
+                                    <% if(user.google_oauth !== undefined){ %>
+                                        darker-ssn
+                                    <% }%>
+                                    "></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class='left-home-user-options'>
+                <a href='/articles/new' class='left-home-option-elem'>
+                    <div class='left-home-option-icon-div'>
+                        <i class="fas fa-pen left-home-option-icon write-new-icon"></i>
+                    </div>
+                    <div>
+                        <p class='left-home-options-text'>Write a post</p>
+                    </div>
+                </a>
+                <a href='/tags' class='left-home-option-elem'>
+                    <div class='left-home-option-icon-div'>
+                        <i class="fas fa-tag left-home-option-icon tag-icon"></i>
+                    </div>
+                    <div>
+                        <p class='left-home-options-text'>Tags</p>
+                    </div>
+                </a>
+                <a href='/articles/liked' class='left-home-option-elem'>
+                    <div class='left-home-option-icon-div'>
+                        <i class="fas fa-heartbeat left-home-option-icon liked-icon"></i>
+                    </div>
+                    <div>
+                        <p class='left-home-options-text'>Liked post</p>
+                    </div>
+                </a>
+                <a href='/articles/popular' class='left-home-option-elem'>
+                    <div class='left-home-option-icon-div'>
+                        <i class="fas fa-fire left-home-option-icon popular-icon"></i>
+                    </div>
+                    <div>
+                        <p class='left-home-options-text'>Popular posts</p>
+                    </div>
+                </a>
+            </div>
+            <div class='tag-follow-main-div'>
+                <div class='followed-tags-outer-div'>
+                    <% if(user.tagsFollowed.length > 0 ) {%>
+                        <div class='followed-tags-inner-div'>
+                            <div class='followed-tags-inner-div-single'>
+                                <p class='header-follow-tag-home'>My Tags</p>
+                            </div>
+                            <% user.tagsFollowed.forEach(elem =>{ %>
+                            <div class='followed-tags-inner-div-double'>
+                                <a class='home-page-toggle-tag-name' href='tags/<%=elem %>'>
+                                    #<%= elem %>
+                                </a>
+                                <div class='home-page-toggle-div'>
+                                    <a class='home-page-toggle-a' href='tags/<%=elem %>/unsubscribe'>
+                                        Unsubscribe
+                                    </a>
+                                </div>
+                            </div>    
+                            <% }) %>
+
+                        </div>
+                    <% }%>
+                </div>
+                <div class='notfollowed-tags-outer-div'>
+                    <% if(tags.length > 0) {%>
+                        <div class='followed-tags-inner-div'>
+                            <div class='followed-tags-inner-div-single'>
+                                <p class='header-follow-tag-home'>Other Popular Tags</p>
+                            </div>
+                            <% tags.forEach(elem =>{ %>
+                                <% let result = user.tagsFollowed %>
+                                <% console.log(result) %>
+                                <% if(!result.includes(elem.tagname)) {%>
+                                    <div class='followed-tags-inner-div-double'>
+                                        <a class='home-page-toggle-tag-name' href='tags/<%=elem.tagname %>'>
+                                            #<%= elem.tagname %>
+                                        </a>
+                                        <div class='home-page-toggle-div'>
+                                            <a class='home-page-toggle-a' href='tags/<%=elem.tagname %>/subscribe'>
+                                                Subscribe
+                                            </a>
+                                        </div>
+                                    </div>    
+                            <% }}) %>
+                        </div>
+                    <% }%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container list-container-view">
+        <div class='filter-view-home-list'>
+            <a class='feed-filter-view filter-view-single'>
+                Feed
+            </a>
+            <a class='today-filter-view filter-view-single'>
+                Today
+            </a>
+            <a class='week-filter-view filter-view-single'>
+                Week
+            </a>
+            <a class='infinity-filter-view filter-view-single'>
+                Infinity
+            </a>
+            
+        </div>  
+        <div class='filter-view-grid'>
+        <% if(feedArticles.length) { %>
+            <div class='article-list-grid-feed'>
+            <% feedArticles.forEach((elem,index) => { %>
+                <div class='single'>
+                    <p class='feed-support-p'><%= feedSupport[index] %></p>
+                    <a href="/articles/<%= elem.id %>/"><h2 class='single-heading'><%= elem.title%></h2></a>
+                    <div class='article-page-title-author-div'>
+                        <div class="profilepic"><img class="responsive-img" src="<% if(elem.author.avatar === 'avatar' && (elem.author.github_oauth ||elem.author.google_oauth)) { %> 
+                            <% if(elem.author.github_oauth) { %>
+                                <%= elem.author.github_profile.photo %>
+                            <%} else if(elem.author.google_oauth) { %>
+                                <%= elem.author.google_profile.picture %>
+                            <% } %>   
+                        <%} else { %>
+                            <%= `/data/uploads/${elem.author.avatar}`%>
+                        <%} %>              
+"/></div>
+                        <div class='article-page-grid-user-follow article-page-author'>
+                            <a href="/users/<%=elem.author.id%>" class='article-auth-grid-elem article-auth-link'><%= elem.author.name%></a> 
+                            <span class='article-update-displ-grid-elem article-update-displ'><%= elem.updatedAt.toString().substr(4,11) %></span>
+                            <div class='article-author-fol-div com-view-art-follow'>
+                                <% if(elem.author.id !== user.id) { %>
+                                    <% if(elem.author.followers.includes(user.id)) { %>
+                                    <a href="/users/<%= elem.author.id %>/unfollow" class='pfu profile-follow-user'>Following</a>
+                                    <% } else {%>
+                                    <a href="/users/<%= elem.author.id %>/follow" class='pfu profile-unfollow-user'>Follow</a>
+                                    <% } %>
+                                <% } %>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class='tags-grid'>
+                        <% elem.tags.forEach(element => { %>
+                            <div class="tag-elem-div">
+                                <a href="/tags/<%= element %>"class="tag-elem"> #<%= element%></a>
+                            </div>
+                        <% }); %>
+                    </div>
+                    <div class='misc-grid'>
+                        <div class='left-special like-left-special'>
+                            <div>
+                                <a href='/articles/<%= elem.id%>/like' class='like-link like-animate like-link-smaller'> 
+                                    <img class="img-like 
+                                        <% if(user.likedArticles.includes(elem.id)) {%>
+                                        <%= 'liked-art' %>
+                                        <% } %>
+                                    " src='/images/like-img.png'/>
+                                </a>
+                            </div>
+                            <span class='likes-count'><%= `${elem.readersLiked.length}`%></span>
+                        </div>
+                        <div class='left-special comment-left-special'>
+                            <div>
+                                <a href='/articles/<%=elem.id%>#allcomments' class='like-link '> 
+                                    <i class="fas fa-comment-alt comment-sp like-link-smaller"></i>
+                                </a>
+                            </div>
+                            <span class='likes-count'><%= `${elem.comments.length}`%></span>
+                        </div>
+                    </div>
+                </div>
+                <% })%>
+            </div>
+            <% } else { %>
+                <h1 class='text-align-center feed-view-heading filter-view-heading'>No article for now. Come back later</h1>
+            <% } %>
+        </div>    
+        <div class='filter-view-grid'>
+        <% if(todayArticles.length) { %>
+            <div class='article-list-grid-today'>
+            <% todayArticles.forEach(elem => { %>
+                <div class='single'>
+                    <a href="/articles/<%= elem.id %>/"><h2 class='single-heading'><%= elem.title%></h2></a>
+                    <div class='article-page-title-author-div'>
+                        <div class="profilepic"><img class="responsive-img" src="<% if(elem.author.avatar === 'avatar' && (elem.author.github_oauth ||elem.author.google_oauth)) { %> 
+                            <% if(elem.author.github_oauth) { %>
+                                <%= elem.author.github_profile.photo %>
+                            <%} else if(elem.author.google_oauth) { %>
+                                <%= elem.author.google_profile.picture %>
+                            <% } %>   
+                        <%} else { %>
+                            <%= `/data/uploads/${elem.author.avatar}`%>
+                        <%} %>              
+                        "/></div>
+                        <div class='article-page-grid-user-follow article-page-author'>
+                            <a href="/users/<%=elem.author.id%>" class='article-auth-grid-elem article-auth-link'><%= elem.author.name%></a> 
+                            <span class='article-update-displ-grid-elem article-update-displ'><%= elem.updatedAt.toString().substr(4,11) %></span>
+                            <div class='article-author-fol-div com-view-art-follow'>
+                                <% if(elem.author.id !== user.id) { %>
+                                    <% if(elem.author.followers.includes(user.id)) { %>
+                                    <a href="/users/<%= elem.author.id %>/unfollow" class='pfu profile-follow-user'>Following</a>
+                                    <% } else {%>
+                                    <a href="/users/<%= elem.author.id %>/follow" class='pfu profile-unfollow-user'>Follow</a>
+                                    <% } %>
+                                <% } %>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class='tags-grid'>
+                        <% elem.tags.forEach(element => { %>
+                            <div class="tag-elem-div">
+                                <a href="/tags/<%= element %>"class="tag-elem"> #<%= element%></a>
+                            </div>
+                        <% }); %>
+                    </div>
+                    <div class='misc-grid'>
+                        <div class='left-special like-left-special'>
+                            <div>
+                                <a href='/articles/<%= elem.id%>/like' class='like-link like-animate like-link-smaller'> 
+                                    <img class="img-like 
+                                        <% if(user.likedArticles.includes(elem.id)) {%>
+                                        <%= 'liked-art' %>
+                                        <% } %>
+                                    " src='/images/like-img.png'/>
+                                </a>
+                            </div>
+                            <span class='likes-count'><%= `${elem.readersLiked.length}`%></span>
+                        </div>
+                        <div class='left-special comment-left-special'>
+                            <div>
+                                <a href='/articles/<%=elem.id%>#allcomments' class='like-link '> 
+                                    <i class="fas fa-comment-alt comment-sp like-link-smaller"></i>
+                                </a>
+                            </div>
+                            <span class='likes-count'><%= `${elem.comments.length}`%></span>
+                        </div>
+                    </div>
+                </div>
+                <% })%>
+            </div>
+        <% } else { %>
+            <h1 class='text-align-center today-view-heading filter-view-heading'>No article for now. Come back later</h1>
+        <% } %>
+        </div>
+        <div class='filter-view-grid'>
+        <% if(weekArticles.length) { %>
+            <div class='article-list-grid-week'>
+            <% weekArticles.forEach(elem => { %>
+                <div class='single'>
+                    <a href="/articles/<%= elem.id %>/"><h2 class='single-heading'><%= elem.title%></h2></a>
+                    <div class='article-page-title-author-div'>
+                        <div class="profilepic"><img class="responsive-img" src="<% if(elem.author.avatar === 'avatar' && (elem.author.github_oauth ||elem.author.google_oauth)) { %> 
+                            <% if(elem.author.github_oauth) { %>
+                                <%= elem.author.github_profile.photo %>
+                            <%} else if(elem.author.google_oauth) { %>
+                                <%= elem.author.google_profile.picture %>
+                            <% } %>   
+                        <%} else { %>
+                            <%= `/data/uploads/${elem.author.avatar}`%>
+                        <%} %>              
+                        "/></div>
+                        <div class='article-page-grid-user-follow article-page-author'>
+                            <a href="/users/<%=elem.author.id%>" class='article-auth-grid-elem article-auth-link'><%= elem.author.name%></a> 
+                            <span class='article-update-displ-grid-elem article-update-displ'><%= elem.updatedAt.toString().substr(4,11) %></span>
+                            <div class='article-author-fol-div com-view-art-follow'>
+                                <% if(elem.author.id !== user.id) { %>
+                                    <% if(elem.author.followers.includes(user.id)) { %>
+                                    <a href="/users/<%= elem.author.id %>/unfollow" class='pfu profile-follow-user'>Following</a>
+                                    <% } else {%>
+                                    <a href="/users/<%= elem.author.id %>/follow" class='pfu profile-unfollow-user'>Follow</a>
+                                    <% } %>
+                                <% } %>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class='tags-grid'>
+                        <% elem.tags.forEach(element => { %>
+                            <div class="tag-elem-div">
+                                <a href="/tags/<%= element %>"class="tag-elem"> #<%= element%></a>
+                            </div>
+                        <% }); %>
+                    </div>
+                    <div class='misc-grid'>
+                        <div class='left-special like-left-special'>
+                            <div>
+                                <a href='/articles/<%= elem.id%>/like' class='like-link like-animate like-link-smaller'> 
+                                    <img class="img-like 
+                                        <% if(user.likedArticles.includes(elem.id)) {%>
+                                        <%= 'liked-art' %>
+                                        <% } %>
+                                    " src='/images/like-img.png'/>
+                                </a>
+                            </div>
+                            <span class='likes-count'><%= `${elem.readersLiked.length}`%></span>
+                        </div>
+                        <div class='left-special comment-left-special'>
+                            <div>
+                                <a href='/articles/<%=elem.id%>#allcomments' class='like-link '> 
+                                    <i class="fas fa-comment-alt comment-sp like-link-smaller"></i>
+                                </a>
+                            </div>
+                            <span class='likes-count'><%= `${elem.comments.length}`%></span>
+                        </div>
+                    </div>
+                </div>
+                <% })%>
+            </div>
+        <% } else { %>
+            <h1 class='text-align-center week-view-heading filter-view-heading'>No article for now. Come back later</h1>
+        <% } %>
+        </div>
+
+
+        <div class='filter-view-grid'>
+        <% if(articles.length) { %>
+        <div class='article-list-grid-infinity'>
+        <% articles.forEach(elem => { %>
+            <div class='single single-for-slide'>
+                <a href="/articles/<%= elem.id %>/"><h2 class='single-heading'><%= elem.title%></h2></a>
+                <div class='article-page-title-author-div'>
+                    <div class="profilepic"><img class="responsive-img" src="<% if(elem.author.avatar === 'avatar' && (elem.author.github_oauth ||elem.author.google_oauth)) { %> 
+                        <% if(elem.author.github_oauth) { %>
+                            <%= elem.author.github_profile.photo %>
+                        <%} else if(elem.author.google_oauth) { %>
+                            <%= elem.author.google_profile.picture %>
+                        <% } %>   
+                        <%} else { %>
+                            <%= `/data/uploads/${elem.author.avatar}`%>
+                        <%} %>              
+                    "/></div>
+                    <div class='article-page-grid-user-follow article-page-author'>
+                        <a href="/users/<%=elem.author.id%>" class='article-auth-grid-elem article-auth-link'><%= elem.author.name%></a> 
+                        <span class='article-update-displ-grid-elem article-update-displ'><%= elem.updatedAt.toString().substr(4,11) %></span>
+                        <div class='article-author-fol-div com-view-art-follow'>
+                            <% if(elem.author.id !== user.id) { %>
+                                <% if(elem.author.followers.includes(user.id)) { %>
+                                <a href="/users/<%= elem.author.id %>/unfollow" class='pfu profile-follow-user'>Following</a>
+                                <% } else {%>
+                                <a href="/users/<%= elem.author.id %>/follow" class='pfu profile-unfollow-user'>Follow</a>
+                                <% } %>
+                            <% } %>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='tags-grid'>
+                    <% elem.tags.forEach(element => { %>
+                        <div class="tag-elem-div">
+                            <a href="/tags/<%= element %>"class="tag-elem"> #<%= element%></a>
+                        </div>
+                    <% }); %>
+                </div>
+                <div class='misc-grid'>
+                    <div class='left-special like-left-special'>
+                        <div>
+                            <a href='/articles/<%= elem.id%>/like' class='like-link like-animate like-link-smaller'> 
+                                <img class="img-like 
+                                    <% if(user.likedArticles.includes(elem.id)) {%>
+                                    <%= 'liked-art' %>
+                                    <% } %>
+                                " src='/images/like-img.png'/>
+                            </a>
+                        </div>
+                        <span class='likes-count'><%= `${elem.readersLiked.length}`%></span>
+                    </div>
+                    <div class='left-special comment-left-special'>
+                        <div>
+                            <a href='/articles/<%=elem.id%>#allcomments' class='like-link '> 
+                                <i class="fas fa-comment-alt comment-sp like-link-smaller"></i>
+                            </a>
+                        </div>
+                        <span class='likes-count'><%= `${elem.comments.length}`%></span>
+                    </div>
+                </div>
+            </div>
+            <% })%>
+        </div>
+        <% } else { %>
+        <h1 class='text-align-center inifity-view-heading filter-view-heading'>No article for now. Come back later</h1>
+        <% } %> 
+        </div>
+    </div>
+    <div class='right-home-div'>
+        <div class='right-home-inner-div'>
+            <div class='more-from-network-div'>
+                <div class='basic-flex more-flex'>
+                    <h2 class='more-from-network-text'>
+                        New from
+                        your network
+                    </h2>
+                    
+                </div>
+                <div class='basic-flex img-network-cont'>
+                    <img src = '/images/network.png' class='home-network-img'>
+
+                </div>
+            </div>
+            <div class='network-articles'>
+                <div class='network-articles-grid'>
+                    <% fArticles.forEach(elem =>{ %>
+                    <div class='network-articles-elem'>
+                        <a href="/articles/<%= elem.id %>/" class='single-heading network-article-title'>
+                            <%= elem.title %>
+                        </a>
+                        <div class='article-page-title-author-div'>
+                            <div class="profilepic"><img class="responsive-img" src="<% if(elem.author.avatar === 'avatar' && (elem.author.github_oauth ||elem.author.google_oauth)) { %> 
+                                <% if(elem.author.github_oauth) { %>
+                                    <%= elem.author.github_profile.photo %>
+                                <%} else if(elem.author.google_oauth) { %>
+                                    <%= elem.author.google_profile.picture %>
+                                <% } %>   
+                            <%} else { %>
+                                <%= `/data/uploads/${elem.author.avatar}`%>
+                            <%} %>              
+                            "/></div>
+                            <div class='article-page-grid-user-follow article-page-author'>
+                                <a href="/users/<%=elem.author.id%>" class='article-auth-grid-elem article-auth-link network-auth-name'><%= elem.author.name%></a> 
+                                <span class='article-update-displ-grid-elem article-update-displ network-auth-date'><%=elem.updatedAt.toString().substr(4,11) %> </span>
+                                
+                                <div class='article-author-fol-div com-view-art-follow'>
+                                    <% if(elem.author.id !== user.id) { %>
+                                        <% if(elem.author.followers.includes(user.id)) { %>
+                                        <a href="/users/<%= elem.author.id %>/unfollow" class='pfu profile-follow-user'>Following</a>
+                                        <% } else {%>
+                                        <a href="/users/<%= elem.author.id %>/follow" class='pfu profile-unfollow-user'>Follow</a>
+                                        <% } %>
+                                    <% } %>
+                                </div>     
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    // var allArticles = articles;
+    // console.log(allArticles);
+    document.querySelector('.feed-filter-view').classList.toggle('filter-view-single-active');
+    
+    
+    var screens = Array.from(document.querySelectorAll('.filter-view-grid'));
+    screens.forEach(elem =>{
+        elem.style.display='none';
+    });
+    screens[0].style.display = 'block';
+    
+    document.addEventListener('click', updateListView);
+    function updateListView(event) {
+        let target = event.target;
+        if(!target.classList.contains('filter-view-single'))
+            return;
+        var result = [],node = target.parentNode.firstChild;
+
+        while ( node ) {
+            if ( node !== this && node.nodeType === Node.ELEMENT_NODE ) 
+                result.push( node );
+            node = node.nextElementSibling || node.nextSibling;
+        }
+        var index = 0;
+        result.forEach((elem,ind) =>{
+            if(target === elem)
+                index = ind;
+            if(elem.classList.contains('filter-view-single-active'))
+                elem.classList.remove('filter-view-single-active'); 
+        });
+        console.log(index);
+        screens.forEach(elem =>{
+            elem.style.display='none';
+        });
+        screens[index].style.display = 'block';
+
+        target.classList.add('filter-view-single-active');
+    }
+
+    $(document).ready(function(){
+      $(function () {
+        var socket = io.connect('http://localhost:3000');
+        socket.on('new article', function(msg){
+            let title = msg.split('@@')[0];
+            let authorId = msg.split('@@')[1];
+            let authorName = msg.split('@@')[2];
+            let articleId = msg.split('@@')[3];
+            console.log(title,  authorId);
+            $('.notifications-center')
+            .append($(`<div class="new-notification-div" >`)
+            .html(`<p class='new-notif-p'>
+                        New Post Available
+                    </p>
+                    <h5 class='new-notification-text'>
+                        ${title}
+                    </h5> 
+                    <a href= '/users/${authorId}' class='notif-author'>
+                        by ${authorName}
+                    </a> 
+                    <i class="notif-stack-des fas fa-cogs">
+                    </i>`));
+
+        });
+
+      });
+    });
+    
+    
+</script>
+<%- include('partials/footer') -%>

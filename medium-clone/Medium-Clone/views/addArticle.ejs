@@ -1,0 +1,73 @@
+<%- include('partials/header') -%>
+<div class="container">
+    <form class="add-article" action="/articles" method="POST" data-id="<%= user.name %>"</form>
+        <div class="add-elem-div">
+            <input class="title-article" type="text" name="title" placeholder="Title" required>
+        </div>
+        
+        <div class="add-elem-div">
+            <textarea name="description" rows="4" cols="50" placeholder="Description" required></textarea>
+        </div>
+        <div class="add-elem-div">
+            <input class="tags-article" type="text" name="tags" placeholder="Tags(like NodeJS, React, NPM)">
+        </div>
+        <div class="add-elem-div"> 
+            <input type="submit" value="Publish">
+            <a class="button-new clear-anchor" >Clear</a>
+        </div>
+    </form>
+    
+</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+ 
+    <script>
+
+        //This just manages the auto expand of the <textarea>
+        var comfyText = function () {
+            let tag = document.querySelectorAll('textarea');
+            let events = ['paste', 'input', 'keyup'];
+            let windowEvents = ['load', 'resize'];
+
+            events.forEach(event => {
+                tag.forEach(el => {
+                el.addEventListener(event, autoExpand);
+                });
+            });
+
+            windowEvents.forEach(event => {
+                window.addEventListener(event, expandAll);
+            });
+
+            function autoExpand(e, el) {
+                var el = el || e.target;
+                el.style.height = 'inherit';
+                el.style.height = el.scrollHeight + 'px';
+            }
+
+            function expandAll() {
+                let tagArr = [].slice.call(tag);
+                tagArr.forEach(el => {
+                autoExpand(e, tag[el]);
+                });
+            }
+        }();
+     
+        $(document).ready(function(){
+        $(function () {
+            var socket = io.connect('http://localhost:3000');
+            $('form').submit(function(){
+            console.log($('.title-article').val());
+            // console.log()
+            socket.emit('new article', $('.title-article').val() +
+                '@@'+ $('.profile-pic-header').attr('data-id') + 
+                '@@' + $('form').attr('data-id'));
+            
+            });
+            
+        });
+        });
+    
+    </script>
+
+<%- include('partials/footer') -%>

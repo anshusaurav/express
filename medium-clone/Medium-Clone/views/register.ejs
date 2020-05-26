@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Medium -Get smarted about what matters to you</title>
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <link rel="shortcut icon" type="image/png" href="/images/medium-favicon.png"/>
+    <script src="https://kit.fontawesome.com/f4ce9ea80b.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    
+  </head>
+  <body class='form-background'>
+    <script>
+      let printTag = async() =>{
+      let x = await localStorage.getItem('tagsToBeFollowed');
+      console.log(x);
+      }
+      printTag();
+    </script>
+    <header>
+      <a href='/'><p class='header-links' id='logo-p'>Medium</p></a>
+    <a href="/users/register"><div class="button header-links">Sign Up</div></a>
+    <a href="/users/login"><div class="button header-links">Sign In</div></a>
+    </header>
+    <div class=form-container>
+      <form class="form" action="/users/register" method="POST">
+        <div class="flashes">
+          <script type="text/javascript">window.setTimeout("document.querySelector('.flashes').style.display='none';", 2000); </script>
+
+          <% if(locals.message){ %>
+              <% console.log('Client: ', JSON.stringify(locals.message)) %>
+               <% if(locals.message.Success) { %>
+                  <div class="alert alert-success" role="alert">
+                      <%=message.Success[0]%>
+                  </div>
+              <% } else {%>
+                  <div class="alert alert-error" role="alert">
+                      <%=message.Error[0]%>
+                  </div>
+        
+              <% } %>
+          <% } %>
+        </div>
+        <h2>Register</h2>
+        <div class="input">
+          <div class="inputBox">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Name" required/>
+          </div>
+          <div class="inputBox">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="example@xyz.com" required>
+          </div>
+          <div class="inputBox">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="*******" required>
+          </div>
+          <div>
+            <input id="tags" type="hidden" name="tags" value=''>
+          </div>
+        
+          <div class="inputBox">
+            <input class='register-submit' type="submit" value="Signup with Email">
+          </div>
+          <div>
+            <a href= '/auth/github' class='oauth-github'>
+              <i class="fab fa-github oauth-login-i"></i>
+              <p>Signup with Github</p>
+            </a>
+          </div>
+          <div>
+            <a href= '/auth/facebook' class='oauth-fb'>
+              <i class="fab fa-facebook oauth-login-i"></i>
+              <p>Signin with Facebook</p>
+            </a>
+          </div>
+          <div>
+            <a href= '/auth/google' class='oauth-fb'>
+              <i class="fab fa-google oauth-login-i"></i>
+              <p>Signup with Google</p>
+            </a>
+          </div>
+        </div>
+        <p class="forget">Already registered? <a href="/users/login">Click Here</a></p>
+      </form>
+    </div>
+    <script>
+      document.onreadystatechange  = (function(){
+        return async()=>{
+          var tags = await localStorage.getItem('tagsToBeAdded');
+          var tagElem = document.querySelector('#tags');
+          tagElem.value = tags;
+          // 
+        }
+      })();
+      document.querySelector(".form").onsubmit = function onSubmit(form) {
+        localStorage.removeItem('tagsToBeAdded');
+      }
+    </script>
+    
